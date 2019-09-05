@@ -40,12 +40,18 @@ class App extends Component {
   }
 
   validateUrl = (url) => {
+    // eslint-disable-next-line
+    const regExp = new RegExp("^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)")
     let error = '';
+
+    if (!Validator.matches(url, regExp)){
+      error = 'Url should start with http:// or https://';
+    }
 
     if (!Validator.isURL(url)){
       error = 'This URL is not valid';
     }
-
+    
     if (Validator.isEmpty(url)){
       error = 'Please enter URL';
     }
@@ -58,7 +64,7 @@ class App extends Component {
 
   render() {
     const { url, shortenedUrl, error, loading } = this.state;
-    const clipboard = new ClipboardJS('.shortened');
+    new ClipboardJS('.shortened');
 
     return (
       <div className="container">
